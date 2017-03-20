@@ -5,15 +5,22 @@ class DB
     @connection = PG::Connection.new(ip, port, nil, nil, dbname, dbuser, passwd)
   end
 
-  def selectData(table, fields, params, values)
-    fieldsStr = (fields != nil && fields.length > 0) ? getFields(fields) : " * "
-    whereStr  = (params != nil && params.length > 0) ? "WHERE ".concat(params[0]).concat("=").concat(values[0]) : ""
-    andStr    = (params != nil && params.length > 1) ? getParamsAnd(params, values)  : ""
+  def selectData(instruction)
+    fieldsStr = instruction.fields != nil ? getFields(instruction.fields) : " * "
+    whereStr  = (params != nil && params.keys.length > 0) ? "WHERE ".concat(params.keys[0]).concat("=").concat(params[params.keys[0]]) : ""
+    andStr = getWhere(params)
 
-    sql = "SELECT #{fieldsStr} FROM #{table} #{whereStr} #{andStr}"
-    puts sql
+    #params.each do |(i, k)|
+    #  puts "#{i}: #{k}"
+    #end
 
-    return @connection.exec(sql)
+
+    #whereStr  = (params != nil && params.length > 0) ? "WHERE ".concat(params[0]).concat("=").concat(values[0]) : ""
+    #andStr    = (params != nil && params.length > 1) ? getParamsAnd(params, values)  : ""
+
+    #sql = "SELECT #{fieldsStr} FROM #{table} #{whereStr} #{andStr}"
+
+    #return @connection.exec(sql)
   end
 
   def getParamsAnd(params, values)
@@ -31,11 +38,18 @@ class DB
 
     for field in fields
       ret.concat(",") if ret.length > 0
-
       ret.concat(field)
     end
 
     return ret
+  end
+
+  def getWhere(params)
+    ret = ""
+
+    param.each do |(i, k)|
+
+    end
   end
 
   def close
