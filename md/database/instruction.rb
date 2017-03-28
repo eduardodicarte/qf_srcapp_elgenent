@@ -1,9 +1,3 @@
-require_relative 'md/database/enumeration'
-
 class Instruction
-  @type = nil
-  @from = nil
-  @field = nil
-  @where = nil
-  @and = nil
+  attr_accessor :type, :from, :fields, :where, :and
 end

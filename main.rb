@@ -1,6 +1,10 @@
 require_relative 'db/dbconnect'
-require_relative 'md/database/enumeration'
 require_relative 'md/database/instruction'
+require_relative 'md/database/enumeration'
+require_relative 'md/database/table'
+require_relative 'md/database/from'
+require_relative 'md/database/column'
+require_relative 'md/database/field'
 
 ip = "192.168.43.10"
 port = "5432"
@@ -16,8 +20,15 @@ def getTables
   table = Table.new("information_schema.tables", nil)
   instruction.from = From.new(table)
 
-  instruction.where = Column.new("table_schema", "'el'")
-  instruction.field = Column.new(Array.new("table_name"))
+  columns = Array.new
+  columns.push(Column.new("table_schema", "'el'"))
+
+  instruction.where = columns
+
+  fields = Array.new
+  fields.push(Field.new("table_name"))
+
+  instruction.fields = fields
 
   return @db.selectData(instruction)
 end

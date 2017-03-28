@@ -8,7 +8,9 @@ class DB
   def selectData(instruction)
     fieldsStr = instruction.fields != nil ? getFields(instruction.fields) : " * "
     whereStr  = (params != nil && params.keys.length > 0) ? "WHERE ".concat(params.keys[0]).concat("=").concat(params[params.keys[0]]) : ""
-    andStr = getWhere(params)
+
+    puts whereStr
+    #andStr = getWhere(params)
 
     #params.each do |(i, k)|
     #  puts "#{i}: #{k}"
@@ -37,8 +39,8 @@ class DB
     ret = ""
 
     for field in fields
-      ret.concat(",") if ret.length > 0
-      ret.concat(field)
+        ret.concat(",") if ret.length > 0
+        ret.concat(field.name)
     end
 
     return ret

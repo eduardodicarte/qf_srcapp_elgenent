@@ -1,9 +1,9 @@
-require_relative 'md/database/enumeration'
-
 class Column
+  attr_accessor :name, :value, :type
+
   def initialize(name, value = nil, type = nil)
-    @name = name
-    @value = value
-    @type = type
+    self.name = name
+    self.value = value
+    self.type = type
   end
 end

@@ -1,5 +1,3 @@
 class Where
-  def initialize(column)
-    @column = column
-  end
+  attr_accessor :columns
 end
